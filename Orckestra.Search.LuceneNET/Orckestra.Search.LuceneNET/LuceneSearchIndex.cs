@@ -200,7 +200,11 @@ namespace Orckestra.Search.LuceneNET
                 }
             }
 
-            var doc = new Document();
+            var doc = new Document
+            {
+                Boost = document.Boost > 0 ? document.Boost : 0
+            };
+
             fields.ForEach(doc.Add);
 
             return doc;
