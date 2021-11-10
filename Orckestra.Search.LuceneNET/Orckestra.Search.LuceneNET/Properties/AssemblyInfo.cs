@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Orckestra A/S")]
 [assembly: AssemblyProduct("Orckestra.Search.LuceneNET")]
-[assembly: AssemblyCopyright("Copyright © 2017")]
+[assembly: AssemblyCopyright("Copyright © 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
