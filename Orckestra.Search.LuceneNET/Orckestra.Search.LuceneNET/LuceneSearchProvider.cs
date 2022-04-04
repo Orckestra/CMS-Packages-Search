@@ -138,7 +138,8 @@ namespace Orckestra.Search.LuceneNET
                     {
                         Query = query,
                         Offset = searchQuery.SearchResultOffset,
-                        Count = searchQuery.MaxDocumentsNumber
+                        Count = searchQuery.MaxDocumentsNumber,
+                        ShowExplanation = searchQuery.ShowExplanation
                     };
 
                     if (searchQuery.Selection != null)
@@ -337,9 +338,9 @@ namespace Orckestra.Search.LuceneNET
             Action<SearchResultItem, Document> buildHighlights)
         {
             var resultDocs = new List<SearchResultItem>(hits.Length);
-            var docs = hits.Select(h => reader.Document(h.DocId));
+            var hitsWithDocuments = hits.Select(browseHit => (Hit: browseHit, Doc: reader.Document(browseHit.DocId)));
 
-            foreach (var document in docs)
+            foreach (var (hit, document) in hitsWithDocuments)
             {
                 var fieldValues = new Dictionary<string, object>();
                 foreach (var field in document.GetFields().Where(f => f.Name.StartsWith(Constants.PreviewFieldPrefix)))
@@ -361,8 +362,10 @@ namespace Orckestra.Search.LuceneNET
                     {
                         ElementBundleName = GetString(Constants.FieldNames.version),
                         Url = GetString(Constants.FieldNames.url),
-                        FieldValues = fieldValues
-                    }
+                        FieldValues = fieldValues,
+                    },
+                    Score = hit.Score,
+                    ExplanationSummary = hit.Explanation?.ToString()
                 };
 
                 buildHighlights?.Invoke(resultLine, document);
@@ -372,6 +375,7 @@ namespace Orckestra.Search.LuceneNET
 
             return resultDocs;
         }
+
 
         private Dictionary<string, Facet[]> GetFacets(BrowseResult browseResult)
         {
