@@ -111,12 +111,12 @@ namespace Orckestra.Search.LuceneNET.BoboCustomization
         {
             string field = sortField.Field;
             var locale = sortField.Locale;
-            if (locale != null) return new CustomStringLocaleComparatorSource(field, locale);
+            if (locale != null) return new CustomStringComparatorSource(field, locale);
             int type = sortField.Type;
             switch (type)
             {
                 case SortField.STRING:
-                    return new CustomStringValComparatorSource(field);
+                    return new CustomStringComparatorSource(field);
                 case SortField.INT:
                     return new DocComparatorSource.IntDocComparatorSource(field);
                 case SortField.FLOAT:
@@ -132,7 +132,7 @@ namespace Orckestra.Search.LuceneNET.BoboCustomization
                 case SortField.BYTE:
                     return new DocComparatorSource.ByteDocComparatorSource(field);
                 case SortField.STRING_VAL:
-                    return new CustomStringValComparatorSource(field);
+                    return new CustomStringComparatorSource(field);
                 default:
                     throw new InvalidOperationException("Illegal sort type: " + type + ", for field: " + field);
             }
