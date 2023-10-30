@@ -115,24 +115,24 @@ namespace Orckestra.Search.LuceneNET.BoboCustomization
             int type = sortField.Type;
             switch (type)
             {
-                case 3:
-                    return new CustomStringComparatorSource(field);
-                case 4:
+                case SortField.STRING:
+                    return new CustomStringValComparatorSource(field);
+                case SortField.INT:
                     return new DocComparatorSource.IntDocComparatorSource(field);
-                case 5:
+                case SortField.FLOAT:
                     return new DocComparatorSource.FloatDocComparatorSource(field);
-                case 6:
+                case SortField.LONG:
                     return new DocComparatorSource.LongDocComparatorSource(field);
-                case 7:
+                case SortField.DOUBLE:
                     return new DocComparatorSource.LongDocComparatorSource(field);
-                case 8:
+                case SortField.SHORT:
                     return new DocComparatorSource.ShortDocComparatorSource(field);
-                case 9:
+                case SortField.CUSTOM:
                     throw new InvalidOperationException("Lucene custom sort no longer supported: " + field);
-                case 10:
+                case SortField.BYTE:
                     return new DocComparatorSource.ByteDocComparatorSource(field);
-                case 11:
-                    return new CustomStringComparatorSource(field);
+                case SortField.STRING_VAL:
+                    return new CustomStringValComparatorSource(field);
                 default:
                     throw new InvalidOperationException("Illegal sort type: " + type + ", for field: " + field);
             }
