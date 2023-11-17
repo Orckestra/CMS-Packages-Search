@@ -96,7 +96,6 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="StartupHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BoboCustomization\CustomStringLocaleComparatorSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
